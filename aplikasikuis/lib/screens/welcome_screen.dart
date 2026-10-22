@@ -1,3 +1,4 @@
+import 'package:aplikasikuis/screens/quiz_screen.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatefulWidget {

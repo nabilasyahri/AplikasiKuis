@@ -29,7 +29,7 @@ Aplikasi Kuis Pilihan Ganda interaktif berbasis mobile dan web yang dibangun men
 * **Logo Quiz**: https://pin.it/AzUil9q1y
 
 ### 2. Screenshot Aplikasi
-* **Link Google Drive**: 
+* **Link Google Drive**: (https://drive.google.com/drive/folders/1k1DKeTDXKyu0_oFgH40IhWt1YtzRQMOX?usp=sharing)
 
 ### 3. Link Mockup / Prototype
 * **Figma Prototype**: (https://www.figma.com/design/QDX1yWtjNotMaE6MQaboj7/Kelompok-3-Desain-Interaksi?node-id=0-1&t=ErsLfKgRak6V3aYu-1)

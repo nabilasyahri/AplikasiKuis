@@ -19,11 +19,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Aplikasi Kuis Pilihan Ganda',
-      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.indigo,
         useMaterial3: true,
+        colorSchemeSeed: const Color(0xFF6C63FF),
+        fontFamily: 'CreatoDisplay-Bold',
+        textTheme: Theme.of(context).textTheme.apply(
+          fontFamily: 'Creato Display',
+        ),
       ),
+      debugShowCheckedModeBanner: false,
       home: const WelcomeScreen(),
     );
   }

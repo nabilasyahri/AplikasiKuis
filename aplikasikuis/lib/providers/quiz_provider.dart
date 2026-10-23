@@ -5,15 +5,22 @@ import '../models/question_model.dart';
 class QuizProvider with ChangeNotifier {
   String _userName = '';
   int _currentQuestionIndex = 0;
-  final Map<int, int> _userAnswers = {}; // Simpan jawaban pengguna per indeks soal
+  final Map<int, int> _userAnswers = {};
+  bool _isDarkMode = false; // State untuk Dark Mode
 
   List<Question> get questions => dummyQuestions;
   String get userName => _userName;
   int get currentQuestionIndex => _currentQuestionIndex;
   Map<int, int> get userAnswers => _userAnswers;
+  bool get isDarkMode => _isDarkMode;
 
   void setUserName(String name) {
     _userName = name;
+    notifyListeners();
+  }
+
+  void toggleTheme() {
+    _isDarkMode = !_isDarkMode;
     notifyListeners();
   }
 
@@ -40,7 +47,7 @@ class QuizProvider with ChangeNotifier {
     int score = 0;
     _userAnswers.forEach((index, answer) {
       if (answer == dummyQuestions[index].correctOptionIndex) {
-        score += 20; // Tiap soal bernilai 20 poin
+        score += 20;
       }
     });
     return score;

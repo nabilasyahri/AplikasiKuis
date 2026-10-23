@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/quiz_provider.dart';
-import 'welcome_screen.dart';
+import 'main_navigation_screen.dart';
 
 class ResultScreen extends StatelessWidget {
-  const ResultScreen({super.key, required String userName});
+  final String userName;
+
+  const ResultScreen({super.key, required this.userName});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class ResultScreen extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color(0xFF6C63FF), Color(0xFF4834DF)],
+            colors: [Color(0xFF3342CC), Color(0xFF4834DF)],
           ),
         ),
         child: SafeArea(
@@ -50,7 +52,7 @@ class ResultScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      'Selamat, ${quizProvider.userName}!',
+                      'Selamat, $userName!',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: screenSize.width * 0.055,
@@ -89,7 +91,7 @@ class ResultScreen extends StatelessWidget {
                             style: TextStyle(
                               fontSize: screenSize.width * 0.14,
                               fontWeight: FontWeight.bold,
-                              color: const Color(0xFF6C63FF),
+                              color: const Color(0xFF3342CC),
                             ),
                           ),
                           Text(
@@ -103,16 +105,17 @@ class ResultScreen extends StatelessWidget {
                     ElevatedButton.icon(
                       onPressed: () {
                         quizProvider.resetQuiz();
+                        // Kembali ke halaman utama (MainNavigationScreen)
                         Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+                          MaterialPageRoute(builder: (context) => const MainNavigationScreen()),
                               (route) => false,
                         );
                       },
-                      icon: const Icon(Icons.replay_rounded),
-                      label: const Text('Coba Lagi'),
+                      icon: const Icon(Icons.home_rounded),
+                      label: const Text('Kembali ke Home'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF6C63FF),
+                        backgroundColor: const Color(0xFF3342CC),
                         foregroundColor: Colors.white,
                         minimumSize: const Size(double.infinity, 50),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),

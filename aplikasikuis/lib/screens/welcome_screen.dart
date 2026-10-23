@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/quiz_provider.dart';
-import 'quiz_screen.dart';
+import 'main_navigation_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -23,9 +23,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
+    final isDark = Provider.of<QuizProvider>(context).isDarkMode;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF4F6FB),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -51,9 +51,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           color: Colors.white.withOpacity(0.2),
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: Row(
+                        child: const Row(
                           mainAxisSize: MainAxisSize.min,
-                          children: const [
+                          children: [
                             Icon(Icons.stars_rounded, size: 16, color: Colors.white),
                             SizedBox(width: 6),
                             Text(
@@ -89,8 +89,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ),
               ),
             ),
-
-
             Transform.translate(
               offset: const Offset(0, -40),
               child: Padding(
@@ -98,7 +96,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 child: Container(
                   padding: const EdgeInsets.all(24),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
                     borderRadius: BorderRadius.circular(24),
                     boxShadow: [
                       BoxShadow(
@@ -117,12 +115,24 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           child: Container(
                             padding: const EdgeInsets.all(18),
                             decoration: BoxDecoration(
-                              color: const Color(0xFF3342CC).withOpacity(0.1),
+                              color: isDark ? Colors.white10 : Colors.white,
                               shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.05),
+                                  blurRadius: 10,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ],
                             ),
                             child: Image.asset(
                               'assets/images/dice.png',
-                              height: 80,
+                              height: 60,
+                              errorBuilder: (context, error, stackTrace) => const Icon(
+                                Icons.psychology_rounded,
+                                size: 50,
+                                color: Color(0xFF3342CC),
+                              ),
                             ),
                           ),
                         ),
@@ -133,12 +143,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF2D3748),
                           ),
                         ),
                         const SizedBox(height: 6),
                         const Text(
-                          'Nama ini akan ditampilkan pada sesi kuis kamu.',
+                          'Nama ini akan ditampilkan pada profil dan sesi kuis.',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 12,
@@ -146,8 +155,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           ),
                         ),
                         const SizedBox(height: 24),
-
-                        // Form Input Nama
                         TextFormField(
                           controller: _nameController,
                           style: const TextStyle(fontWeight: FontWeight.w600),
@@ -161,39 +168,33 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
-                              borderSide: BorderSide(color: Colors.grey.shade200),
+                              borderSide: BorderSide(color: Colors.grey.shade300),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
                               borderSide: const BorderSide(color: Color(0xFF3342CC), width: 2),
                             ),
                             filled: true,
-                            fillColor: const Color(0xFFF8F9FA),
+                            fillColor: isDark ? Colors.grey.shade900 : const Color(0xFFF8F9FA),
                           ),
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {
-                              return 'Nama tidak boleh kosong ya!';
+                              return 'Nama tidak boleh kosong';
                             }
                             return null;
                           },
                         ),
                         const SizedBox(height: 24),
-
-                        // Tombol Mulai Kuis
                         ElevatedButton(
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               String userName = _nameController.text.trim();
+                              Provider.of<QuizProvider>(context, listen: false).setUserName(userName);
 
-                              // Simpan nama ke QuizProvider
-                              Provider.of<QuizProvider>(context, listen: false)
-                                  .setUserName(userName);
-
-                              // Pindah ke QuizScreen
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => QuizScreen(userName: userName),
+                                  builder: (context) => const MainNavigationScreen(),
                                 ),
                               );
                             }
@@ -207,11 +208,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             ),
                             elevation: 2,
                           ),
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            children: [
                               Text(
-                                'Mulai Kuis',
+                                'Masuk',
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,

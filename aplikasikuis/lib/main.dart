@@ -17,17 +17,30 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final quizProvider = Provider.of<QuizProvider>(context);
+
     return MaterialApp(
-      title: 'Aplikasi Kuis Pilihan Ganda',
+      debugShowCheckedModeBanner: false,
+      title: 'Quiz App',
+      themeMode: quizProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
       theme: ThemeData(
-        useMaterial3: true,
-        colorSchemeSeed: const Color(0xFF6C63FF),
-        fontFamily: 'CreatoDisplay-Bold',
-        textTheme: Theme.of(context).textTheme.apply(
-          fontFamily: 'Creato Display',
+        brightness: Brightness.light,
+        scaffoldBackgroundColor: const Color(0xFFF4F6FB),
+        fontFamily: 'Creato Display',
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF3342CC),
+          brightness: Brightness.light,
         ),
       ),
-      debugShowCheckedModeBanner: false,
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: const Color(0xFF121212),
+        fontFamily: 'Creato Display',
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF3342CC),
+          brightness: Brightness.dark,
+        ),
+      ),
       home: const WelcomeScreen(),
     );
   }

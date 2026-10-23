@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/quiz_provider.dart';
 import '../widgets/answer_option_card.dart';
-import 'welcome_screen.dart';
+import 'main_navigation_screen.dart';
 import 'result_screen.dart';
 
 class QuizScreen extends StatelessWidget {
@@ -39,15 +39,15 @@ class QuizScreen extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          // Tombol Kembali ke WelcomeScreen
+                          // Tombol Kembali ke MainNavigationScreen (Home)
                           IconButton(
                             icon: const Icon(Icons.arrow_back_rounded, color: Colors.white),
                             onPressed: () {
-                              quizProvider.resetQuiz(); // Reset data kuis jika kembali
+                              quizProvider.resetQuiz();
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const WelcomeScreen(),
+                                  builder: (context) => const MainNavigationScreen(),
                                 ),
                               );
                             },

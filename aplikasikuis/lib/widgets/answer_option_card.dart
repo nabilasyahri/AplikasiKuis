@@ -14,29 +14,50 @@ class AnswerOptionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 6),
-      decoration: BoxDecoration(
-        color: isSelected ? const Color(0xFF6C63FF).withOpacity(0.1) : Colors.white,
-        border: Border.all(
-          color: isSelected ? const Color(0xFF6C63FF) : Colors.grey.shade300,
-          width: isSelected ? 2 : 1,
-        ),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: ListTile(
-        onTap: onTap,
-        title: Text(
-          optionText,
-          style: TextStyle(
-            fontSize: 15,
-            color: isSelected ? const Color(0xFF6C63FF) : Colors.black87,
-            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+      margin: EdgeInsets.symmetric(vertical: screenSize.height * 0.008),
+      child: Material(
+        color: isSelected ? const Color(0xFF6C63FF).withOpacity(0.12) : Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(16),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            padding: EdgeInsets.symmetric(
+              horizontal: screenSize.width * 0.04,
+              vertical: screenSize.height * 0.018,
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: isSelected ? const Color(0xFF6C63FF) : Colors.grey.shade300,
+                width: isSelected ? 2.0 : 1.0,
+              ),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  isSelected ? Icons.check_circle_rounded : Icons.radio_button_unchecked_rounded,
+                  color: isSelected ? const Color(0xFF6C63FF) : Colors.grey.shade400,
+                  size: screenSize.width * 0.06,
+                ),
+                SizedBox(width: screenSize.width * 0.03),
+                Expanded(
+                  child: Text(
+                    optionText,
+                    style: TextStyle(
+                      fontSize: screenSize.width * 0.038,
+                      fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                      color: isSelected ? const Color(0xFF6C63FF) : Colors.black87,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-        trailing: Icon(
-          isSelected ? Icons.radio_button_checked : Icons.radio_button_unchecked,
-          color: isSelected ? const Color(0xFF6C63FF) : Colors.grey,
         ),
       ),
     );

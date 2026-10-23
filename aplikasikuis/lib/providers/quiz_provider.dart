@@ -1,63 +1,54 @@
-import 'package:flutter/foundation.dart';
-import '../models/question_model.dart';
+import 'package:flutter/material.dart';
 import '../data/dummy_questions.dart';
+import '../models/question_model.dart';
 
 class QuizProvider with ChangeNotifier {
-  final List<Question> _questions = dummyQuestions;
-  int _currentIndex = 0;
-  int _score = 0;
-  final Map<int, int> _selectedAnswers = {}; // Menyimpan jawaban: key = index soal, value = pilihan jawaban
-  bool _isFinished = false;
+  String _userName = '';
+  int _currentQuestionIndex = 0;
+  final Map<int, int> _userAnswers = {}; // Simpan jawaban pengguna per indeks soal
 
-  // Getter untuk mengakses data dari UI
-  List<Question> get questions => _questions;
-  int get currentIndex => _currentIndex;
-  int get score => _score;
-  Map<int, int> get selectedAnswers => _selectedAnswers;
-  bool get isFinished => _isFinished;
+  List<Question> get questions => dummyQuestions;
+  String get userName => _userName;
+  int get currentQuestionIndex => _currentQuestionIndex;
+  Map<int, int> get userAnswers => _userAnswers;
 
-  // Fungsi saat pengguna memilih jawaban
-  void selectAnswer(int questionIndex, int optionIndex) {
-    _selectedAnswers[questionIndex] = optionIndex;
+  void setUserName(String name) {
+    _userName = name;
     notifyListeners();
   }
 
-  // Pindah ke soal berikutnya atau selesaikan kuis
+  void selectAnswer(int questionIndex, int answerIndex) {
+    _userAnswers[questionIndex] = answerIndex;
+    notifyListeners();
+  }
+
   void nextQuestion() {
-    if (_currentIndex < _questions.length - 1) {
-      _currentIndex++;
-      notifyListeners();
-    } else {
-      _isFinished = true;
-      calculateScore();
+    if (_currentQuestionIndex < dummyQuestions.length - 1) {
+      _currentQuestionIndex++;
       notifyListeners();
     }
   }
 
-  // Pindah ke soal sebelumnya
   void previousQuestion() {
-    if (_currentIndex > 0) {
-      _currentIndex--;
+    if (_currentQuestionIndex > 0) {
+      _currentQuestionIndex--;
       notifyListeners();
     }
   }
 
-  // Menghitung total skor akhir
-  void calculateScore() {
-    _score = 0;
-    _selectedAnswers.forEach((questionIndex, selectedOption) {
-      if (_questions[questionIndex].correctOptionIndex == selectedOption) {
-        _score += 20; // Asumsi 5 soal, masing-masing bobot 20 poin (total 100)
+  int calculateScore() {
+    int score = 0;
+    _userAnswers.forEach((index, answer) {
+      if (answer == dummyQuestions[index].correctOptionIndex) {
+        score += 20; // Tiap soal bernilai 20 poin
       }
     });
+    return score;
   }
 
-  // Reset kuis untuk mengulang dari awal
   void resetQuiz() {
-    _currentIndex = 0;
-    _score = 0;
-    _selectedAnswers.clear();
-    _isFinished = false;
+    _currentQuestionIndex = 0;
+    _userAnswers.clear();
     notifyListeners();
   }
 }

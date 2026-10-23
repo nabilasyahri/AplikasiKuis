@@ -4,7 +4,7 @@ import '../providers/quiz_provider.dart';
 import 'welcome_screen.dart';
 
 class ResultScreen extends StatelessWidget {
-  const ResultScreen({super.key});
+  const ResultScreen({super.key, required String userName});
 
   @override
   Widget build(BuildContext context) {

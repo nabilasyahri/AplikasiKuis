@@ -35,4 +35,4 @@ Aplikasi Kuis Pilihan Ganda interaktif berbasis mobile dan web yang dibangun men
 * **Figma Prototype**: (https://www.figma.com/design/QDX1yWtjNotMaE6MQaboj7/Kelompok-3-Desain-Interaksi?node-id=0-1&t=ErsLfKgRak6V3aYu-1)
 
 ### 4. Link Video Presentasi
-* **Google Drive**: 
+* **Google Drive**: (https://drive.google.com/drive/folders/1JHiQ7Oa51aD8L9dWducBtxMwguQL-omo?usp=drive_link)

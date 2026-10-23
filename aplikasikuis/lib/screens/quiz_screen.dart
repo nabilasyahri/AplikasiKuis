@@ -16,11 +16,12 @@ class QuizScreen extends StatelessWidget {
 
     return Consumer<QuizProvider>(
       builder: (context, quizProvider, child) {
+        final isDark = quizProvider.isDarkMode;
         final currentQuestion = quizProvider.questions[quizProvider.currentQuestionIndex];
         final selectedAnswerIndex = quizProvider.userAnswers[quizProvider.currentQuestionIndex];
 
         return Scaffold(
-          backgroundColor: const Color(0xFFF4F6FB),
+          backgroundColor: isDark ? const Color(0xFF121212) : const Color(0xFFF4F6FB),
           body: SafeArea(
             child: Column(
               children: [
@@ -39,7 +40,6 @@ class QuizScreen extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          // Tombol Kembali ke MainNavigationScreen (Home)
                           IconButton(
                             icon: const Icon(Icons.arrow_back_rounded, color: Colors.white),
                             onPressed: () {
@@ -104,11 +104,11 @@ class QuizScreen extends StatelessWidget {
                                 Container(
                                   padding: EdgeInsets.all(screenSize.width * 0.05),
                                   decoration: BoxDecoration(
-                                    color: Colors.white,
+                                    color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
                                     borderRadius: BorderRadius.circular(20),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.black.withOpacity(0.03),
+                                        color: Colors.black.withOpacity(isDark ? 0.2 : 0.03),
                                         blurRadius: 12,
                                         offset: const Offset(0, 4),
                                       ),
@@ -119,7 +119,7 @@ class QuizScreen extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: screenSize.width * 0.043,
                                       fontWeight: FontWeight.bold,
-                                      color: const Color(0xFF2D3748),
+                                      color: isDark ? Colors.white : const Color(0xFF2D3748),
                                       height: 1.35,
                                     ),
                                   ),
@@ -159,17 +159,17 @@ class QuizScreen extends StatelessWidget {
                                       quizProvider.previousQuestion();
                                     },
                                     style: OutlinedButton.styleFrom(
-                                      backgroundColor: const Color(0xFFE8ECF8),
+                                      backgroundColor: isDark ? const Color(0xFF2C2C2C) : const Color(0xFFE8ECF8),
                                       side: BorderSide.none,
                                       padding: const EdgeInsets.symmetric(vertical: 14),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(14),
                                       ),
                                     ),
-                                    child: const Text(
+                                    child: Text(
                                       'Sebelumnya',
                                       style: TextStyle(
-                                        color: Color(0xFF3342CC),
+                                        color: isDark ? Colors.white70 : const Color(0xFF3342CC),
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),

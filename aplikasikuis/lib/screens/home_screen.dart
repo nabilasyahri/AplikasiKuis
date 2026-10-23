@@ -13,7 +13,8 @@ class HomeScreen extends StatelessWidget {
     final userName = quizProvider.userName.isEmpty ? 'User' : quizProvider.userName;
 
     return Scaffold(
-      body: Center(
+      body: Align(
+        alignment: Alignment.topCenter, // <-- Agar posisi konten rata atas di layar
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 500),
           child: SafeArea(

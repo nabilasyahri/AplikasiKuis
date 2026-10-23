@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/quiz_provider.dart';
 import 'quiz_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -111,7 +113,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             String userName = _nameController.text.trim();
-                            Navigator.push(
+                            // Simpan nama ke QuizProvider
+                            Provider.of<QuizProvider>(context, listen: false)
+                                .setUserName(userName);
+                            Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => QuizScreen(userName: userName),
